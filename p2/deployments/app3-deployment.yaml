@@ -20,7 +20,7 @@ spec:
       containers:
       - name: app3
 
-        image: zkotbi/app3:v2
+        image: zkotbi/app3:v1
 
         imagePullPolicy: Always
 
