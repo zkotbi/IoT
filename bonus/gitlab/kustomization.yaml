@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: gitlab
+
+resources:
+  - namespace.yaml
+  - gitlab-config-map.yaml
+  - gitlab-pvc.yaml
+  - postgres-pvc.yaml
+  - postgres.yaml
+  - redis.yaml
+  - gitlab.yaml
+  - ingress.yaml

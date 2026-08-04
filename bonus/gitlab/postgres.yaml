@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-dyn
+  namespace: gitlab
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      name: postgres-db
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: postgres-db
+          image: postgres:18.4-alpine3.24
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: gitlab-config
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: postgres-storage
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: gitlab
+spec:
+  selector:
+    app: db
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+      protocol: TCP

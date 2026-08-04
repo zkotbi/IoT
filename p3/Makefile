@@ -1,8 +1,7 @@
-CLUSTER_NAME = dev-cluster
-NAMESPACE = argocd
+CLUSTER_NAME ?= dev-cluster
+NAMESPACE ?= argocd
 
-
-all: create-cluster install-argocd  wait credentials
+all: create-cluster install-argocd wait credentials
 
 create-cluster:
 	@k3d cluster create $(CLUSTER_NAME) \
@@ -14,7 +13,7 @@ install-argocd:
 	@kubectl apply --server-side -k argocd/
 
 wait: 
-	@echo "[INFO] Waiting for Argo-cd to be up"
+	@echo "waiting for argo to be up"
 	@kubectl wait --for=condition=Available deployment --all -n $(NAMESPACE) --timeout=400s
 
 credentials:

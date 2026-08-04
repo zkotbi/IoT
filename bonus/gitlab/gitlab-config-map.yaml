@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-config
+  namespace: gitlab
+data:
+  POSTGRES_PASSWORD: supersecret
+  POSTGRES_USER: gitlab_user
+  POSTGRES_DB: gitlabhq_production
+  REDIS_PASSWORD: _redis_password
+  GITLAB_ROOT_PASSWORD: Lilnex123456@
+
+
+  GITLAB_OMNIBUS_CONFIG: |
+    external_url 'https://gitlab.worklet.dev'
+
+    gitlab_rails['nginx']['listen_port'] = 80
+    gitlab_rails['nginx']['listen_https'] = false
+    gitlab_rails['gitlab_shell_ssh_port'] = 2222
+
+    postgresql['enable'] = false
+    redis['enable'] = false
+
+    # PostgreSQL
+    gitlab_rails['db_adapter']  = 'postgresql'
+    gitlab_rails['db_host']     = 'postgres'
+    gitlab_rails['db_port']     = 5432
+    gitlab_rails['db_username'] = 'gitlab_user'
+    gitlab_rails['db_password'] = 'supersecret'
+    gitlab_rails['db_database'] = 'gitlabhq_production'
+
+    # Redis
+    gitlab_rails['redis_host']     = 'redis'
+    gitlab_rails['redis_port']     = 6379
+    gitlab_rails['redis_password'] = '_redis_password'
+
+
+    # Prometheus
+    prometheus_monitoring['enable'] = false
+
+    # Container Registry
+    registry['enable'] = false
+    gitlab_rails['registry_enabled'] = false
+
+    # GitLab Pages
+    gitlab_pages['enable'] = false
+
+    # Kubernetes Agent Server
+    gitlab_kas['enable'] = false
+
+    # Dependency Proxy
+    gitlab_rails['dependency_proxy_enabled'] = false
+
+    # Terraform State
+    gitlab_rails['terraform_state_enabled'] = false
+
+    # Package Registry
+    gitlab_rails['packages_enabled'] = false
+
+    # Security Dashboard
+    gitlab_rails['security_dashboard_enabled'] = false
+
+    # Telemetry
+    gitlab_rails['usage_ping_enabled'] = false
+    gitlab_rails['seat_link_enabled'] = false
+
