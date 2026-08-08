@@ -4,24 +4,20 @@ kind: Application
 metadata:
   name: iot-p3
   namespace: argocd
-
+data:
+  timeout.reconcile: 30s
 spec:
-
   project: default
-
   source:
     repoURL: https://github.com/zkotbi/zkotbi-iot-p3.git
     targetRevision: main
     path: app
-
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
-
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-
     syncOptions:
       - CreateNamespace=true

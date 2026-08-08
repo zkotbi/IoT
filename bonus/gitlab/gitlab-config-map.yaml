@@ -8,7 +8,7 @@ data:
   POSTGRES_USER: gitlab_user
   POSTGRES_DB: gitlabhq_production
   REDIS_PASSWORD: _redis_password
-  GITLAB_ROOT_PASSWORD: Lilnex123456@
+  GITLAB_ROOT_PASSWORD: gitlab_supersecret
 
 
   GITLAB_OMNIBUS_CONFIG: |
@@ -16,7 +16,6 @@ data:
 
     gitlab_rails['nginx']['listen_port'] = 80
     gitlab_rails['nginx']['listen_https'] = false
-    gitlab_rails['gitlab_shell_ssh_port'] = 2222
 
     postgresql['enable'] = false
     redis['enable'] = false

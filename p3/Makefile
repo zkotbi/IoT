@@ -14,7 +14,8 @@ install-argocd:
 
 wait: 
 	@echo "waiting for argo to be up"
-	@kubectl wait --for=condition=Available deployment --all -n $(NAMESPACE) --timeout=400s
+	@kubectl wait --for=condition=Available deployment --all -n $(NAMESPACE) --timeout=500s
+	@kubectl apply -f application.yaml
 
 credentials:
 	@echo ""
